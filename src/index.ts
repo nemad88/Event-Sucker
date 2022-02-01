@@ -3,7 +3,8 @@ import cheerio from "cheerio";
 import axios from "axios";
 
 const app = express();
-const port = 3004;
+
+const port = process.env.PORT || 3004;
 
 const { load: cheerioLoad } = cheerio;
 
