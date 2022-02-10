@@ -3,9 +3,9 @@ const february = ["feb", "febr", "február", "2", "02"];
 const march = ["mar", "marc", "már", "márc", "március", "3", "03"];
 const april = ["apr", "ápr", "április", "4", "04"];
 const may = ["may", "maj", "máj", "május", "5", "05"];
-const june = ["feb", "febr.", "február", "2", "02"];
-const july = ["feb", "febr.", "február", "2", "02"];
-const august = ["feb", "febr.", "február", "2", "02"];
+const june = ["jun", "june", "jún", "júni", "június", "6", "06"];
+const july = ["jul", "july", "júl", "júli", "7", "07"];
+const august = ["aug", "augusztus", "august", "8", "08"];
 const september = [
   "sep",
   "sept",
@@ -17,8 +17,8 @@ const september = [
   "09",
 ];
 const october = ["oct", "okt", "október", "october", "10", "10"];
-const november = ["feb", "febr.", "február", "2", "02"];
-const december = ["feb", "febr.", "február", "2", "02"];
+const november = ["nov", "november", "11"];
+const december = ["dec", "december", "12"];
 
 export const getMonthNumber = (monthAsString: string): number => {
   const trimmedMonth = monthAsString

@@ -26,12 +26,12 @@ router.get("/akvariumklub", async (req, res) => {
     const imageUrl = cheerioLoad(elem)("img").attr("src");
     const dateMonth = cheerioLoad(elem)(".date__month");
     const dateDay = cheerioLoad(elem)(".date__day");
-    const lengthOfDate = dateMonth.length;
+    const lengthOfDateMonth = dateMonth.length;
+    const lengthDateDay = dateDay.length;
 
-    if (lengthOfDate > 1) {
+    if (lengthOfDateMonth > 1 || lengthDateDay > 1) {
       const monthList = [];
       const dayList = [];
-      let dateString = "";
 
       cheerioLoad(elem)(".date__month").each((i, elem) => {
         monthList.push(cheerioLoad(elem).text().trim());
@@ -43,17 +43,14 @@ router.get("/akvariumklub", async (req, res) => {
 
       if (monthList.length === dayList.length) {
         for (let i = 0; i < monthList.length; i++) {
-          if (i > 0) {
-            dateString += ` - ${getMonthNumber(monthList[i])} ${dayList[i]}`;
-            continue;
-          }
-
-          dateString += `${getMonthNumber(monthList[i])} ${dayList[i]}`;
+          akvariumEvents.push({
+            title,
+            day: dayList[i],
+            month: monthList[i],
+            place: "Akvárium Klub",
+          });
         }
       }
-
-      akvariumEvents.push({ title, date: dateString, place: "Akvárium Klub" });
-
       return;
     }
 
