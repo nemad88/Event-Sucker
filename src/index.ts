@@ -4,9 +4,12 @@ import axios from "axios";
 const app = express();
 const port = process.env.PORT || 3004;
 const router = express.Router();
+import demo from "./demo";
 import { getMonthNumber } from "./utility";
 
 const { load: cheerioLoad } = cheerio;
+
+demo();
 
 const getWebData = async (url) => {
   return axios.get(url).then(({ data }) => data);
