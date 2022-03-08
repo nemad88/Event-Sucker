@@ -61,9 +61,12 @@ export const getMonthNumber = (monthAsString: string): number => {
 };
 
 export const sortByDate = (events: IEvent[]) => {
-  console.log(
-    Object.entries(events).sort(([, a], [, b]) => {
-      return a.year - b.year && a.month - b.month && a.day - b.day;
+  return Object.entries(events)
+    .sort(([, a], [, b]) => {
+      return (
+        new Date(`${a.year}-${a.month}-${a.day}`).getTime() -
+        new Date(`${b.year}-${b.month}-${b.day}`).getTime()
+      );
     })
-  );
+    .map((e) => e[1]);
 };

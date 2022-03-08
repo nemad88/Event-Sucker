@@ -1,20 +1,20 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 import axios from "axios";
-import { getMonthNumber } from "./utility";
+import { getMonthNumber, sortByDate } from "./utility";
 
 const getWebData = async (url) => {
   return axios.get(url).then(({ data }) => data);
 };
 
-export default async (req, res) => {
+export default async (_, res) => {
   const URL = "https://www.budapestpark.hu/";
   const data = await getWebData(URL);
-  const $ = cheerio.load(data);
+  const $ = load(data);
   const elemSelector = ".splide__slide__main";
 
   const eventsAsArray = [];
 
-  $(elemSelector).each((index, elem) => {
+  $(elemSelector).each((_, elem) => {
     const titleSelector = ".title";
     const dateSelector = ".date";
 
@@ -42,5 +42,5 @@ export default async (req, res) => {
 
   res.status(200);
 
-  res.send(eventsAsArray);
+  res.send(sortByDate(eventsAsArray));
 };

@@ -73,5 +73,5 @@ export default async (_, res) => {
     });
   });
 
-  res.send(akvariumEvents);
+  res.send(sortByDate(akvariumEvents));
 };
