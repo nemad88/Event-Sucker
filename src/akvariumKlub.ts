@@ -1,18 +1,19 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 import axios from "axios";
-import { getMonthNumber } from "./utility";
+import { getMonthNumber, sortByDate } from "./utility";
+import { IEvent } from "./interfaces/IEvent";
 
 const getWebData = async (url: string) => {
   return axios.get(url).then(({ data }) => data);
 };
 
-export default async (req, res) => {
+export default async (_, res) => {
   const URL = "https://akvariumklub.hu/programok";
   const data = await getWebData(URL);
-  const $ = cheerio.load(data);
+  const $ = load(data);
 
   const selector = ".programs-cards__wrapper a";
-  const akvariumEvents = [];
+  const akvariumEvents: IEvent[] = [];
 
   $(selector).each((_index, elem) => {
     const title = $(elem).find("h5").text().trim();
@@ -46,16 +47,20 @@ export default async (req, res) => {
             day: parseInt(dayList[i]),
             month: getMonthNumber(monthList[i]),
             place: "Akvárium Klub",
+            imageUrl,
+            year: new Date().getFullYear(),
           });
         }
       }
       return;
     }
 
-    const month = getMonthNumber(dateMonth.text().trim());
+    let month = getMonthNumber(dateMonth.text().trim());
+
     let year = new Date().getFullYear();
     if (dateMonth.text().trim().split(" ").length > 1) {
       year = parseInt(dateMonth.text().trim().split(" ")[0]);
+      month = getMonthNumber(dateMonth.text().trim().split(" ")[1]);
     }
 
     akvariumEvents.push({

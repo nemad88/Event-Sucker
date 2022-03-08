@@ -1,3 +1,5 @@
+import { IEvent } from "./interfaces/IEvent";
+
 const months = {
   january: ["jan", "jan.", "január", "1", "01"],
   february: ["feb", "febr", "február", "2", "02"],
@@ -56,4 +58,12 @@ export const getMonthNumber = (monthAsString: string): number => {
     default:
       return 0;
   }
+};
+
+export const sortByDate = (events: IEvent[]) => {
+  console.log(
+    Object.entries(events).sort(([, a], [, b]) => {
+      return a.year - b.year && a.month - b.month && a.day - b.day;
+    })
+  );
 };
