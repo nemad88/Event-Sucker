@@ -2,7 +2,7 @@ import cheerio from "cheerio";
 import axios from "axios";
 import { getMonthNumber } from "./utility";
 
-const getWebData = async (url) => {
+const getWebData = async (url: string) => {
   return axios.get(url).then(({ data }) => data);
 };
 
@@ -22,7 +22,6 @@ export default async (req, res) => {
     const day = parseInt(
       dateDay.text().trim().replace("\n", "").replace(".", "")
     );
-    // const month = dateMonth.text().replaceAll(".", "");
 
     const lengthOfDateMonth = dateMonth.length;
     const lengthDateDay = dateDay.length;
@@ -32,11 +31,11 @@ export default async (req, res) => {
       const monthList = [];
       const dayList = [];
 
-      dateMonth.each((i, elem) => {
+      dateMonth.each((_, elem) => {
         monthList.push($(elem).text().trim());
       });
 
-      dateDay.each((i, elem) => {
+      dateDay.each((_, elem) => {
         dayList.push($(elem).text().trim());
       });
 
