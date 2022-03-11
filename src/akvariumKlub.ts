@@ -1,6 +1,6 @@
 import { load } from "cheerio";
 import axios from "axios";
-import { getMonthNumber, sortByDate } from "./utility";
+import { getMonthNumber, sortByDate, isDuplicate } from "./utility";
 import { IEvent } from "./interfaces/IEvent";
 
 const getWebData = async (url: string) => {
@@ -17,7 +17,15 @@ export default async (_, res) => {
 
   $(selector).each((_index, elem) => {
     const title = $(elem).find("h5").text().trim();
-    const imageUrl = $(elem).find("img").attr("src");
+
+    const removeImageResize = (urlImg) => {
+      const newUrlImgAsArray = urlImg.split("-300x");
+      newUrlImgAsArray[1] = newUrlImgAsArray[1].substring(3);
+      return newUrlImgAsArray.join("");
+    };
+
+    const imageUrl = removeImageResize($(elem).find("img").attr("src"));
+
     const dateMonth = $(elem).find(".date__month");
     const dateDay = $(elem).find(".date__day");
     const day = parseInt(

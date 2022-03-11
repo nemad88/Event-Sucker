@@ -1,4 +1,5 @@
 import { IEvent } from "./interfaces/IEvent";
+import isEqual = require("lodash/isEqual");
 
 const months = {
   january: ["jan", "jan.", "január", "1", "01"],
@@ -69,4 +70,12 @@ export const sortByDate = (events: IEvent[]) => {
       );
     })
     .map((e) => e[1]);
+};
+
+export const isDuplicate = (arr, newItem) => {
+  const itContains = arr.find((element) => {
+    return isEqual(element, newItem);
+  });
+
+  return Boolean(itContains);
 };

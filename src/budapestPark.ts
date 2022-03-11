@@ -1,6 +1,6 @@
 import { load } from "cheerio";
 import axios from "axios";
-import { getMonthNumber, sortByDate } from "./utility";
+import { getMonthNumber, sortByDate, isDuplicate } from "./utility";
 
 const getWebData = async (url) => {
   return axios.get(url).then(({ data }) => data);
@@ -29,15 +29,20 @@ export default async (_, res) => {
 
     const imageUrl = $(elem).find("img").attr("src");
 
-    if (title && date)
-      eventsAsArray.push({
+    if (title && date) {
+      const newEvent = {
         title,
         day: parseInt(dateDay),
         month: dateMonth,
         year: parseInt(dateYear),
         place: "Budapest Park",
         imageUrl: imageUrl,
-      });
+      };
+
+      if (!isDuplicate(eventsAsArray, newEvent)) {
+        eventsAsArray.push(newEvent);
+      }
+    }
   });
 
   res.status(200);
