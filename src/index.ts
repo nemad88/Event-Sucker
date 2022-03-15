@@ -7,10 +7,8 @@ const router = express.Router();
 import budapestPark from "./budapestPark";
 import akvariumklub from "./akvariumKlub";
 
-// app.use(cors());
-
-router.get("/akvariumklub", cors(), akvariumklub);
-router.get("/budapestpark", cors(), budapestPark);
+router.get("/akvariumklub", akvariumklub);
+router.get("/budapestpark", budapestPark);
 
 app.use(cors({ credentials: true, origin: "*" }));
 
