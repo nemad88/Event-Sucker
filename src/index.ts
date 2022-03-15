@@ -1,5 +1,5 @@
 import express = require("express");
-import cors = require("cors");
+// import cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3004;
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 import budapestPark from "./budapestPark";
 import akvariumklub from "./akvariumKlub";
 
-app.use(cors());
+// app.use(cors());
 
 router.get("/akvariumklub", akvariumklub);
 router.get("/budapestpark", budapestPark);
