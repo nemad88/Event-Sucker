@@ -9,7 +9,16 @@ const getWebData = async (url: string) => {
 
 export default async (_, res) => {
   const URL = "https://akvariumklub.hu/programok";
-  const data = await getWebData(URL);
+
+  let data;
+
+  try {
+    data = await getWebData(URL);
+  } catch (e) {
+    res.send(e);
+    return;
+  }
+
   const $ = load(data);
 
   const selector = ".programs-cards__wrapper a";
@@ -81,6 +90,7 @@ export default async (_, res) => {
     });
   });
 
+  res.status(200);
   res.header("Access-Control-Allow-Origin", "*");
   res.send(sortByDate(akvariumEvents));
 };

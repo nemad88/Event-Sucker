@@ -11,7 +11,14 @@ const getWebData = async (url) => {
 
 export default async (_, res) => {
   const URL = "https://www.budapestpark.hu/";
-  const data = await getWebData(URL);
+  let data;
+  try {
+    data = await getWebData(URL);
+  } catch (e) {
+    res.send(e);
+    return;
+  }
+
   const $ = load(data);
   const elemSelector = ".splide__slide__main";
 
