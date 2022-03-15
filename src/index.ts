@@ -9,8 +9,8 @@ import akvariumklub from "./akvariumKlub";
 
 // app.use(cors());
 
-router.get("/akvariumklub", akvariumklub);
-router.get("/budapestpark", budapestPark);
+router.get("/akvariumklub", cors(), akvariumklub);
+router.get("/budapestpark", cors(), budapestPark);
 
 app.use(cors({ credentials: true, origin: "*" }));
 
