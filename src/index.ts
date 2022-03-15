@@ -6,10 +6,14 @@ const router = express.Router();
 import budapestPark from "./budapestPark";
 import akvariumklub from "./akvariumKlub";
 
-router.get("/akvariumklub", akvariumklub);
-router.get("/budapestpark", budapestPark);
+try {
+  router.get("/akvariumklub", akvariumklub);
+  router.get("/budapestpark", budapestPark);
 
-app.use("/api/v1", router);
+  app.use("/api/v1", router);
+} catch (error) {
+  console.error(error);
+}
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
