@@ -1,5 +1,5 @@
 import express = require("express");
-// import cors = require("cors");
+import cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3004;
 const router = express.Router();
@@ -11,6 +11,8 @@ import akvariumklub from "./akvariumKlub";
 
 router.get("/akvariumklub", akvariumklub);
 router.get("/budapestpark", budapestPark);
+
+app.use(cors({ credentials: true, origin: "*" }));
 
 app.use("/api/v1", router);
 
