@@ -12,6 +12,8 @@ router.get("/budapestpark", budapestPark);
 
 app.use("/api/v1", router);
 
+app.use(cors({ credentials: true, origin: "*" }));
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
