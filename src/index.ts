@@ -12,7 +12,9 @@ try {
 
   app.use("/api/v1", router);
 } catch (error) {
-  console.error(error);
+  console.log("==========================");
+  console.log(error);
+  console.log("==========================");
 }
 
 app.listen(port, () => {

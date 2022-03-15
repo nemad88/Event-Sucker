@@ -10,14 +10,7 @@ const getWebData = async (url: string) => {
 export default async (_, res) => {
   const URL = "https://akvariumklub.hu/programok";
 
-  let data;
-
-  try {
-    data = await getWebData(URL);
-  } catch (e) {
-    res.send(e);
-    return;
-  }
+  const data = await getWebData(URL);
 
   const $ = load(data);
 

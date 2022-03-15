@@ -3,21 +3,12 @@ import axios from "axios";
 import { getMonthNumber, sortByDate, isDuplicate } from "./utility";
 
 const getWebData = async (url) => {
-  return axios
-    .get(url)
-    .then(({ data }) => data)
-    .catch((e) => console.log(e));
+  return axios.get(url).then(({ data }) => data);
 };
 
 export default async (_, res) => {
   const URL = "https://www.budapestpark.hu/";
-  let data;
-  try {
-    data = await getWebData(URL);
-  } catch (e) {
-    res.send(e);
-    return;
-  }
+  const data = await getWebData(URL);
 
   const $ = load(data);
   const elemSelector = ".splide__slide__main";
