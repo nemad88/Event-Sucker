@@ -46,6 +46,6 @@ export default async (_, res) => {
   });
 
   res.status(200);
-
+  res.header("Access-Control-Allow-Origin", "*");
   res.send(sortByDate(eventsAsArray));
 };
