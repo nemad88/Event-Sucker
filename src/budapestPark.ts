@@ -8,8 +8,17 @@ const getWebData = async (url) => {
 
 export default async (_, res) => {
   const URL = "https://www.budapestpark.hu/";
-  const data = await getWebData(URL);
-
+  let data;
+  try {
+    data = await getWebData(URL);
+    console.log(`Fetch from ${URL} is SUCCESSFUL`);
+  } catch (error) {
+    console.log(`Fetch from ${URL} is FAILED`);
+    console.log(`Error: ${error}`);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.code(500);
+    res.send(error);
+  }
   const $ = load(data);
   const elemSelector = ".splide__slide__main";
 

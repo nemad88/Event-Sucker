@@ -9,8 +9,17 @@ const getWebData = async (url: string) => {
 
 export default async (_, res) => {
   const URL = "https://akvariumklub.hu/programok";
-
-  const data = await getWebData(URL);
+  let data;
+  try {
+    data = await getWebData(URL);
+    console.log(`Fetch from ${URL} is SUCCESSFUL`);
+  } catch (error) {
+    console.log(`Fetch from ${URL} is FAILED`);
+    console.log(`Error: ${error}`);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.code(500);
+    res.send(error);
+  }
 
   const $ = load(data);
 
