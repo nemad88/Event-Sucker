@@ -1,5 +1,4 @@
 import express = require("express");
-
 const app = express();
 const port = process.env.PORT || 3004;
 const router = express.Router();
@@ -11,8 +10,6 @@ router.get("/akvariumklub", akvariumklub);
 router.get("/budapestpark", budapestPark);
 
 app.use("/api/v1", router);
-
-app.use(cors({ credentials: true, origin: "*" }));
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
