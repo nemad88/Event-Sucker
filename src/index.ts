@@ -7,12 +7,18 @@ const router = express.Router();
 import budapestPark from "./budapestPark";
 import akvariumklub from "./akvariumKlub";
 
-router.get("/akvariumklub", akvariumklub);
-router.get("/budapestpark", budapestPark);
+router.get(
+  "/akvariumklub",
+  cors({ credentials: true, origin: "*" }),
+  akvariumklub
+);
+router.get(
+  "/budapestpark",
+  cors({ credentials: true, origin: "*" }),
+  budapestPark
+);
 
 app.use("/api/v1", router);
-
-app.use(cors({ credentials: true, origin: "*" }));
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
