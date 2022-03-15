@@ -3,7 +3,10 @@ import axios from "axios";
 import { getMonthNumber, sortByDate, isDuplicate } from "./utility";
 
 const getWebData = async (url) => {
-  return axios.get(url).then(({ data }) => data);
+  return axios
+    .get(url)
+    .then(({ data }) => data)
+    .catch((e) => console.log(e));
 };
 
 export default async (_, res) => {
