@@ -1,3 +1,6 @@
+import fs = require("fs");
+import axios = require("axios");
+import path = require("path");
 import { IEvent } from "./interfaces/IEvent";
 import isEqual = require("lodash/isEqual");
 
@@ -79,3 +82,29 @@ export const isDuplicate = (arr, newItem) => {
 
   return Boolean(itContains);
 };
+
+export async function downloadImage(url, downloadFolder = "../dist/images") {
+  const fileName = path.basename(url);
+
+  const imagesPath = path.resolve(__dirname, downloadFolder);
+  if (!fs.existsSync(imagesPath)) {
+    fs.mkdirSync(imagesPath, { recursive: true });
+  }
+
+  const localFilePath = path.resolve(__dirname, downloadFolder, fileName);
+  console.log("localFilePath", localFilePath);
+
+  if (!fs.existsSync(localFilePath)) {
+    const response = await axios.default({
+      url,
+      method: "GET",
+      responseType: "stream",
+    });
+    return new Promise((resolve, reject) => {
+      response.data
+        .pipe(fs.createWriteStream(localFilePath))
+        .on("error", reject)
+        .once("close", () => resolve(localFilePath));
+    });
+  }
+}

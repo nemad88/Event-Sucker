@@ -3,3 +3,4 @@ dist
 .vscode
 .yarn
 .yarnrc.yml
+.DS_STORE

@@ -1,6 +1,6 @@
 import { load } from "cheerio";
 import axios from "axios";
-import { getMonthNumber, sortByDate, isDuplicate } from "./utility";
+import { getMonthNumber, sortByDate } from "./utility";
 import { IEvent } from "./interfaces/IEvent";
 
 const getWebData = async (url: string) => {

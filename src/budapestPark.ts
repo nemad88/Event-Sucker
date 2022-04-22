@@ -1,6 +1,11 @@
 import { load } from "cheerio";
 import axios from "axios";
-import { getMonthNumber, sortByDate, isDuplicate } from "./utility";
+import {
+  getMonthNumber,
+  sortByDate,
+  isDuplicate,
+  downloadImage,
+} from "./utility";
 
 const getWebData = async (url) => {
   return axios.get(url).then(({ data }) => data);
@@ -57,5 +62,12 @@ export default async (_, res) => {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.status(200);
-  res.send(sortByDate(eventsAsArray));
+  const sortedResponse = sortByDate(eventsAsArray);
+
+  sortedResponse.forEach((event) => {
+    downloadImage(event.imageUrl);
+    console.log(event.imageUrl);
+  });
+
+  res.send(sortedResponse);
 };

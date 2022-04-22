@@ -9,8 +9,8 @@ import akvariumklub from "./akvariumKlub";
 try {
   router.get("/akvariumklub", akvariumklub);
   router.get("/budapestpark", budapestPark);
-
   app.use("/api/v1", router);
+  app.use(express.static("dist"));
 } catch (error) {
   console.log("==========================");
   console.log(error);
